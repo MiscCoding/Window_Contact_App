@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DeskTopContactApp.Classes;
+using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +28,22 @@ namespace DeskTopContactApp
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
+            Contact contact = new Contact()
+            {
+                Name = nameTextBox.Text,
+                Email = emailTextBox.Text,
+                Phone = phoneNumberTextBox.Text
+            };
+            string databaseName = "Contacts.db";
+            
+            string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string databasePath = System.IO.Path.Combine(folderPath, databaseName);
+
+            SQLiteConnection connection = new SQLiteConnection(databasePath);
+            connection.CreateTable<Contact>();
+            connection.Insert(contact);
+            connection.Close();
+
             this.Close();
         }
     }
