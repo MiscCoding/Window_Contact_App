@@ -44,13 +44,8 @@ namespace DeskTopContactApp
             }
             if(contacts != null)
             {
-                foreach(var c in contacts)
-                {
-                    contactsListView.Items.Add(new ListViewItem()
-                    {
-                        Content = c
-                    });
-                }
+                
+                contactsListView.ItemsSource = contacts;
             }
         }
     }
