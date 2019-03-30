@@ -17,35 +17,34 @@ using System.Windows.Shapes;
 namespace DeskTopContactApp
 {
     /// <summary>
-    /// NewContactWindow.xaml에 대한 상호 작용 논리
+    /// ContactDetailsWindow.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class NewContactWindow : Window
+    public partial class ContactDetailsWindow : Window
     {
-        public NewContactWindow()
+        Contact contact;
+
+        public ContactDetailsWindow(Contact contact)
         {
             InitializeComponent();
+            this.contact = contact;
         }
 
-        private void saveButton_Click(object sender, RoutedEventArgs e)
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
-            Contact contact = new Contact()
-            {
-                Name = nameTextBox.Text,
-                Email = emailTextBox.Text,
-                Phone = phoneNumberTextBox.Text
-            };
-            
 
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
             using (SQLiteConnection connection = new SQLiteConnection(App.databasePath))
             {
                 connection.CreateTable<Contact>();
-                connection.Insert(contact);
+                connection.Delete(contact);
             }
-            
+
+
 
             this.Close();
         }
-
-      
     }
 }
